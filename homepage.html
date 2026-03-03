@@ -7,7 +7,6 @@
   <title>Smart Student Feedback System</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -19,6 +18,11 @@
       --text: #0f172a;
       --muted: #64748b;
       --border: #e2e8f0;
+      --dark: #0f172a;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -36,6 +40,7 @@
     .navbar {
       backdrop-filter: blur(6px);
       background: rgba(15, 23, 42, 0.92) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .navbar-brand {
@@ -43,25 +48,60 @@
       letter-spacing: 0.2px;
     }
 
+    .nav-link {
+      font-weight: 500;
+    }
+
     .hero {
-      background: linear-gradient(130deg, #0f172a 0%, #1f4e8c 55%, #2563eb 100%);
+      position: relative;
+      background:
+        linear-gradient(130deg, rgba(15, 23, 42, .86), rgba(31, 78, 140, .76)),
+        url("https://images.agarum.com/kerala/kottayam/amal-jyothi-college-of-engineering/photos/amal-jyothi-college-of-engineering-6.webp") center/cover no-repeat;
       color: white;
       border-radius: 22px;
       padding: 3rem;
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
       overflow: hidden;
+      animation: heroFade 1.1s ease forwards;
+    }
+
+    @keyframes heroFade {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero h1 {
-      font-size: 2.4rem;
+      font-size: 2.35rem;
       font-weight: 700;
       line-height: 1.2;
     }
 
     .hero p {
       font-size: 1rem;
-      opacity: 0.92;
-      max-width: 560px;
+      opacity: 0.93;
+      max-width: 620px;
+    }
+
+    .hero-cta .btn {
+      min-width: 180px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .stat-badge {
@@ -70,31 +110,130 @@
       border-radius: 14px;
       padding: 0.9rem 1rem;
       text-align: center;
-      min-width: 140px;
+      min-width: 150px;
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+
+    .stat-badge:nth-child(2) {
+      animation-delay: .6s;
+    }
+
+    .stat-badge:nth-child(3) {
+      animation-delay: 1.2s;
+    }
+
+    @keyframes floatBadge {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
     .hero-illustration {
-      width: min(100%, 290px);
+      width: min(100%, 300px);
       height: auto;
+      opacity: 0;
+      transform: translateX(40px) scale(.95);
+      animation: imgIn 1.1s ease forwards;
+      animation-delay: .4s;
+      filter: drop-shadow(0 8px 14px rgba(15, 23, 42, .2));
+    }
+
+    @keyframes imgIn {
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    .section-block {
+      padding: 4rem 0;
     }
 
     .section-title {
       font-weight: 700;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       color: #0b1f3a;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    .trust-strip {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.3rem;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      margin-top: 1.2rem;
+    }
+
+    .trust-item {
+      color: var(--muted);
+      font-size: 0.93rem;
+      font-weight: 500;
+      text-align: center;
     }
 
     .feature-card {
       border: 1px solid var(--border);
       border-radius: 16px;
       background: #fff;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
       height: 100%;
+      opacity: 0;
+      transform: translateY(18px) scale(0.94);
+      filter: blur(6px);
+      transition:
+        opacity .7s ease,
+        transform .8s cubic-bezier(.2, .65, .2, 1),
+        filter .8s ease,
+        box-shadow .35s ease;
+      will-change: opacity, transform, filter;
+      position: relative;
+      overflow: hidden;
     }
 
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.09);
+    .feature-card.from-left {
+      transform: translateX(-90px) translateY(8px) scale(0.94);
+    }
+
+    .feature-card.from-right {
+      transform: translateX(90px) translateY(8px) scale(0.94);
+    }
+
+    .feature-card.show {
+      opacity: 1;
+      transform: translateX(0) translateY(0) scale(1);
+      filter: blur(0);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+    }
+
+    .feature-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.45), transparent 65%);
+      transform: translateX(-120%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .feature-card.show::after {
+      opacity: 1;
+      animation: cardShine .95s ease forwards;
+    }
+
+    @keyframes cardShine {
+      to {
+        transform: translateX(120%);
+      }
     }
 
     .feature-icon {
@@ -108,12 +247,136 @@
       justify-content: center;
       font-weight: 700;
       margin-bottom: 0.8rem;
+      transform: scale(0.9);
+      transition: transform .45s ease;
     }
 
-    footer {
+    .feature-card.show .feature-icon {
+      transform: scale(1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 18px 34px rgba(15, 23, 42, 0.16);
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      height: 100%;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .step-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: .9rem;
+      font-weight: 600;
+      margin-bottom: .7rem;
+    }
+
+    .value-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .value-list li {
+      padding: .65rem 0;
+      border-bottom: 1px dashed var(--border);
+      color: #1e293b;
+    }
+
+    .value-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .mini-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 600;
+    }
+
+    .kpi-card {
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .kpi-card h4 {
+      margin: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .quote-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      height: 100%;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+    }
+
+    .cta-banner {
+      background: linear-gradient(120deg, #1f4e8c 0%, #173a69 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.22);
+    }
+
+    .footer-main {
       background: #0f172a;
       color: #cbd5e1;
       margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-main a {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    .footer-main a:hover {
+      color: #fff;
+    }
+
+    .footer-title {
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-note {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 1.6rem;
+      padding-top: 1rem;
+      color: #94a3b8;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 992px) {
+      .hero {
+        padding: 2.1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
     }
 
     @media (max-width: 768px) {
@@ -127,7 +390,7 @@
       }
 
       .hero h1 {
-        font-size: 1.75rem;
+        font-size: 1.7rem;
       }
 
       .hero p {
@@ -139,7 +402,8 @@
         min-width: 0;
       }
 
-      .btn.btn-lg {
+      .btn.btn-lg,
+      .hero-cta .btn {
         width: 100%;
       }
 
@@ -149,6 +413,10 @@
         border-radius: 10px;
         padding: 0.4rem 0.8rem;
       }
+
+      .section-block {
+        padding: 3rem 0;
+      }
     }
 
     @media (max-width: 576px) {
@@ -157,7 +425,7 @@
       }
 
       .hero h1 {
-        font-size: 1.45rem;
+        font-size: 1.4rem;
       }
 
       .stat-badge {
@@ -167,13 +435,31 @@
       .section-title {
         font-size: 1.35rem;
       }
+
+      .cta-banner {
+        padding: 1.4rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .feature-card,
+      .feature-card::after,
+      .feature-icon,
+      .reveal,
+      .hero,
+      .hero-illustration,
+      .stat-badge {
+        transition: none !important;
+        animation: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">Smart Feedback</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -181,27 +467,37 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navmenu">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
           <li class="nav-item"><a class="nav-link active" href="#overview">Overview</a></li>
           <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
+          <li class="nav-item"><a class="nav-link" href="#outcomes">Outcomes</a></li>
           <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+            <a href="#cta" class="btn btn-sm btn-outline-light">Request Demo</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
   <main class="container">
+
     <section class="hero" id="overview">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <h1>Smart Student Feedback System</h1>
-          <p class="mt-3">
-            Share honest feedback about courses and faculty in a structured way. This dashboard is designed for
-            students to submit quick, clear, and useful academic feedback.
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <h1 class="reveal">Professional Student Feedback Management for Modern Campuses</h1>
+
+          <p class="mt-3 reveal">
+            Smart Student Feedback System helps institutions capture reliable feedback, improve course quality,
+            and strengthen student engagement through a secure, structured, and analytics-ready workflow.
           </p>
-          <div class="mt-4">
-            <a href="#" class="btn btn-light btn-lg">Go to Feedback Portal</a>
+
+          <div class="d-flex flex-wrap gap-3 mt-4 hero-cta reveal">
+            <a href="#features" class="btn btn-light btn-lg">Explore Features</a>
+            <a href="#cta" class="btn btn-outline-light btn-lg">Get Started</a>
           </div>
+
           <div class="d-flex gap-3 flex-wrap mt-4">
             <div class="stat-badge">
               <div class="fw-semibold">100% Digital</div>
@@ -213,29 +509,41 @@
             </div>
             <div class="stat-badge">
               <div class="fw-semibold">Secure</div>
-              <small>Student-safe flow</small>
+              <small>Role-based control</small>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6 text-center mt-4 mt-md-0">
+        <div class="col-lg-5 text-center">
           <img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png" class="img-fluid hero-illustration"
             alt="Student feedback illustration">
         </div>
       </div>
     </section>
 
-    <section class="py-5" id="features">
-      <h2 class="text-center mb-4 section-title">System Features</h2>
+    <section class="trust-strip reveal">
+      <div class="row g-3">
+        <div class="col-md-3 col-6 trust-item">Transparent Evaluation Workflow</div>
+        <div class="col-md-3 col-6 trust-item">Department-Wise Reporting</div>
+        <div class="col-md-3 col-6 trust-item">Higher Student Participation</div>
+        <div class="col-md-3 col-6 trust-item">Actionable Academic Insights</div>
+      </div>
+    </section>
+
+    <section class="section-block" id="features">
+      <div class="text-center mb-4">
+        <h2 class="section-title">System Features</h2>
+        <p class="section-subtitle mx-auto">
+          Built for reliability, speed, and decision-ready feedback across students, faculty, and administrators.
+        </p>
+      </div>
 
       <div class="row g-4">
         <div class="col-sm-6 col-lg-3">
           <div class="feature-card p-4 text-center">
             <div class="feature-icon mx-auto">01</div>
             <h6 class="fw-semibold">Simple Student Access</h6>
-            <p class="small text-muted mt-2 mb-0">
-              Student information can be captured with ID, semester, and department.
-            </p>
+            <p class="small text-muted mt-2 mb-0">Capture student ID, semester, and department with a guided flow.</p>
           </div>
         </div>
 
@@ -243,9 +551,7 @@
           <div class="feature-card p-4 text-center">
             <div class="feature-icon mx-auto">02</div>
             <h6 class="fw-semibold">Structured Ratings</h6>
-            <p class="small text-muted mt-2 mb-0">
-              Give clear ratings for teaching quality, course content, and support.
-            </p>
+            <p class="small text-muted mt-2 mb-0">Standardized criteria improve fairness in teaching evaluation.</p>
           </div>
         </div>
 
@@ -253,9 +559,7 @@
           <div class="feature-card p-4 text-center">
             <div class="feature-icon mx-auto">03</div>
             <h6 class="fw-semibold">Quick Submission</h6>
-            <p class="small text-muted mt-2 mb-0">
-              Form-first layout reduces effort and helps students submit in minutes.
-            </p>
+            <p class="small text-muted mt-2 mb-0">Optimized form flow helps students complete feedback in minutes.</p>
           </div>
         </div>
 
@@ -263,23 +567,231 @@
           <div class="feature-card p-4 text-center">
             <div class="feature-icon mx-auto">04</div>
             <h6 class="fw-semibold">Insight Ready</h6>
-            <p class="small text-muted mt-2 mb-0">
-              Collected responses can be used to improve faculty and course delivery.
-            </p>
+            <p class="small text-muted mt-2 mb-0">Turn responses into measurable quality improvements each term.</p>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="section-block pt-0" id="workflow">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-5 reveal">
+          <h2 class="section-title mb-3">How the Workflow Operates</h2>
+          <p class="section-subtitle mb-0">
+            A clear process ensures every submission is trustworthy, complete, and easy to analyze by academic teams.
+          </p>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="row g-3">
+            <div class="col-md-4 reveal">
+              <div class="info-card">
+                <div class="step-badge">1</div>
+                <h6 class="fw-semibold">Authenticate</h6>
+                <p class="small text-muted mb-0">Students verify identity through registration number and semester details.</p>
+              </div>
+            </div>
+            <div class="col-md-4 reveal">
+              <div class="info-card">
+                <div class="step-badge">2</div>
+                <h6 class="fw-semibold">Evaluate</h6>
+                <p class="small text-muted mb-0">Subject and faculty ratings are submitted using defined quality dimensions.</p>
+              </div>
+            </div>
+            <div class="col-md-4 reveal">
+              <div class="info-card">
+                <div class="step-badge">3</div>
+                <h6 class="fw-semibold">Improve</h6>
+                <p class="small text-muted mb-0">Admins review trends and convert insights into practical action plans.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0" id="outcomes">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6 reveal">
+          <div class="info-card h-100">
+            <p class="mini-label mb-2">Institution Value</p>
+            <h3 class="section-title mb-3">Why Institutions Choose Smart Feedback</h3>
+            <ul class="value-list">
+              <li>Improves teaching quality through periodic measurable review.</li>
+              <li>Reduces manual paperwork and duplicate data entry.</li>
+              <li>Supports evidence-based academic policy decisions.</li>
+              <li>Builds transparency and trust between students and faculty.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-6 reveal">
+          <div class="info-card h-100">
+            <p class="mini-label mb-2">Performance Snapshot</p>
+            <h3 class="section-title mb-3">Key Outcomes at a Glance</h3>
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="kpi-card">
+                  <h4>92%</h4>
+                  <small class="text-muted">Feedback Completion</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi-card">
+                  <h4>4.6/5</h4>
+                  <small class="text-muted">Average UX Rating</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi-card">
+                  <h4>3x</h4>
+                  <small class="text-muted">Faster Reporting</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="kpi-card">
+                  <h4>0</h4>
+                  <small class="text-muted">Paper Forms Used</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0">
+      <div class="text-center mb-4 reveal">
+        <h2 class="section-title">Student Voice</h2>
+        <p class="section-subtitle mx-auto">Short feedback from users on transparency, usability, and impact.</p>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4 reveal">
+          <div class="quote-card">
+            <p class="mb-2">“Submitting feedback is now simple and takes less than five minutes.”</p>
+            <small class="text-muted fw-medium">— Final Year Student, CSE</small>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="quote-card">
+            <p class="mb-2">“The dashboard makes department-level review meetings more effective.”</p>
+            <small class="text-muted fw-medium">— Academic Coordinator</small>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="quote-card">
+            <p class="mb-2">“Structured ratings helped us identify and fix recurring classroom issues.”</p>
+            <small class="text-muted fw-medium">— Faculty Mentor</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-5" id="cta">
+      <div class="cta-banner reveal">
+        <div class="row align-items-center g-3">
+          <div class="col-lg-8">
+            <h3 class="mb-2 fw-semibold">Ready to modernize your feedback process?</h3>
+            <p class="mb-0 opacity-75">Deploy a secure, scalable, and student-friendly system for your institution.</p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a href="#" class="btn btn-light btn-lg">Launch Feedback Portal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="py-4" id="footer">
-    <div class="container text-center">
-      <p class="mb-1 fw-medium">Smart Student Feedback System</p>
-      <small>© 2026 College Feedback Management Platform | Student Experience Cell</small>
+  <footer class="footer-main py-5" id="footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h6 class="footer-title">Smart Student Feedback System</h6>
+          <p class="mb-0 small">A structured platform to capture student feedback and support continuous academic quality improvement.</p>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-title">Quick Links</h6>
+          <div class="d-flex flex-column gap-2 small">
+            <a href="#overview">Overview</a>
+            <a href="#features">Features</a>
+            <a href="#workflow">Workflow</a>
+            <a href="#outcomes">Outcomes</a>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-title">Support</h6>
+          <div class="d-flex flex-column gap-2 small">
+            <a href="#">Help Center</a>
+            <a href="#">Documentation</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-title">Contact</h6>
+          <div class="small d-flex flex-column gap-2">
+            <span>Email: support@smartfeedback.edu</span>
+            <span>Phone: +91 98765 43210</span>
+            <span>Mon–Fri | 9:00 AM – 5:00 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-note text-center" id="copyright-text">
+        © 2026 Smart Student Feedback System | Student Experience Cell
+      </div>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const cards = document.querySelectorAll('.feature-card');
+    const year = new Date().getFullYear();
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const cardObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.22,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    cards.forEach((card, index) => {
+      card.classList.add(index % 2 === 0 ? 'from-left' : 'from-right');
+      card.style.transitionDelay = `${index * 120}ms`;
+      cardObserver.observe(card);
+    });
+
+    const copyright = document.getElementById('copyright-text');
+    if (copyright) {
+      copyright.textContent = `© ${year} Smart Student Feedback System | Student Experience Cell`;
+    }
+  </script>
 
 </body>
 
