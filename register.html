@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - SPACΞD Feedback</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="centered">
+<div class="auth-container">
+    <div class="reg-box">
+        <h2>Create Account</h2>
+
+        <form id="regForm">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="fname" placeholder="First Name">
+                <span class="error" id="fnameErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lname" placeholder="Last Name">
+                <span class="error" id="lnameErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Email Address">
+                <span class="error" id="emailErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Choose a username">
+                <span class="error" id="userErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+                <span class="error" id="passErr"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Class</label>
+                <select id="class">
+                    <option value="">Select Class</option>
+                    <option value="MCA">MCA</option>
+                    <option value="INTMCA">INTMCA</option>
+                    <option value="BCA">BCA</option>
+                </select>
+                <span class="error" id="classErr"></span>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="link">
+            <a href="login.html">Already have an account? Login</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+    $("#regForm").submit(function(e){
+        e.preventDefault();
+
+        let fname = $("#fname").val().trim();
+        let lname = $("#lname").val().trim();
+        let email = $("#email").val().trim();
+        let username = $("#username").val().trim();
+        let pass = $("#password").val().trim();
+        let cls = $("#class").val();
+
+        let valid = true;
+        $(".error").text("");
+
+        if(fname === ""){
+            $("#fnameErr").text("First name required");
+            valid = false;
+        }
+        if(lname === ""){
+            $("#lnameErr").text("Last name required");
+            valid = false;
+        }
+        if(email === ""){
+            $("#emailErr").text("Email required");
+            valid = false;
+        }
+
+        if(username === ""){
+            $("#userErr").text("Username required");
+            valid = false;
+        } else if(/\d/.test(username)){
+            $("#userErr").text("Username must not contain numbers");
+            valid = false;
+        }
+
+        let passPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$/;
+
+        if(pass === ""){
+            $("#passErr").text("Password required");
+            valid = false;
+        } else if(!passPattern.test(pass)){
+            $("#passErr").text("Password must include letter, number, special char");
+            valid = false;
+        }
+
+        if(cls === ""){
+            $("#classErr").text("Please select a class");
+            valid = false;
+        }
+
+        // Redirect to login after successful registration
+        if(valid){
+            alert("Registration Successful!");
+            window.location.href = "login.html";
+        }
+    });
+
+});
+</script>
+</body>
+</html>
