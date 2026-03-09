@@ -14,7 +14,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand spaced-logo" href="#">SPACΞD</a>
+      <a class="navbar-brand spaced-logo" href="#">STUDΞNT</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,8 +34,8 @@
     <section class="hero" id="overview">
       <div class="row align-items-center">
         <div class="col-md-7">
-          <h1>The Night Sky<br>Beyond The Naked Eye</h1>
-          <p class="mt-3">
+          <h1 style="font-size: 2.5rem;">Student Pulse –<br>The Heartbeat of Learning</h1>
+          <p class="mt-3" style="color: var(--text-muted);">
             Share honest feedback about courses and faculty in a structured way. This portal is designed for
             students to submit quick, clear, and useful academic feedback.
           </p>
@@ -59,15 +59,59 @@
         </div>
 
         <div class="col-md-5 text-center mt-5 mt-md-0 d-none d-md-block">
-            <!-- Emulating space theme graphic via CSS, maybe a subtle glowing orb -->
-            <div style="width: 300px; height: 300px; margin: auto; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff, #7b61ff, #000); box-shadow: 0 0 60px rgba(123, 97, 255, 0.6); position: relative; animation: float 6s ease-in-out infinite;">
-            <style>
-                @keyframes float {
-                    0% { transform: translateY(0px); }
-                    50% { transform: translateY(-20px); }
-                    100% { transform: translateY(0px); }
-                }
-            </style>
+            <!-- Animated SVG Scene -->
+            <div style="position: relative; width: 320px; height: 320px; margin: auto; background: var(--card-light); border-radius: 50%; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 2px solid #222; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 200 200" width="85%" height="85%" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ground -->
+                <path d="M10 170 Q100 155 190 170 L190 200 L10 200 Z" fill="#111111" />
+                <path d="M20 172 Q100 160 180 172" stroke="#d36930" stroke-width="1" fill="none" opacity="0.3"/>
+
+                <!-- Tree structure -->
+                <path d="M75 170 C75 130 90 90 90 60 C90 90 105 130 105 170 Z" fill="#1e1e1e" />
+                
+                <!-- Leaves / Canopy -->
+                <circle cx="90" cy="65" r="40" fill="#222222" />
+                <circle cx="50" cy="95" r="35" fill="#222222" />
+                <circle cx="130" cy="90" r="30" fill="#222222" />
+                <circle cx="95" cy="35" r="25" fill="#222222" />
+                
+                <!-- Student silhouette -->
+                <circle cx="125" cy="135" r="9" fill="#aaaaaa" />
+                <path d="M112 165 C112 145 138 145 138 165 Z" fill="#aaaaaa" />
+                <path d="M130 160 L145 168 L160 168" stroke="#aaaaaa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                
+                <!-- Book on lap -->
+                <path d="M138 153 L152 157 L158 151 L144 147 Z" fill="#ffffff" opacity="0.95" />
+
+                <!-- Pen Animation -->
+                <g style="animation: writing 0.8s infinite alternate ease-in-out; transform-origin: 148px 154px;">
+                    <path d="M145 142 L148 154 L151 140 Z" fill="#d36930" />
+                </g>
+
+                <!-- Thought bubbles (Thinking animation) -->
+                <g style="animation: floatUp 3s infinite ease-in-out;">
+                    <circle cx="138" cy="115" r="3.5" fill="#ffffff" opacity="0.5"/>
+                    <circle cx="148" cy="98" r="7" fill="#ffffff" opacity="0.7"/>
+                    <circle cx="165" cy="70" r="16" fill="#ffffff" opacity="0.95"/>
+                    
+                    <!-- Idea lightbulb -->
+                    <g stroke="#d36930" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M165 62 A 5 5 0 1 1 160 67 C 160 70 163 71 163 74 L 167 74 C 167 71 170 70 170 67 A 5 5 0 0 1 165 62 Z" />
+                        <line x1="163.5" y1="77" x2="166.5" y2="77" />
+                    </g>
+                </g>
+                
+                <style>
+                  @keyframes writing {
+                    0% { transform: rotate(-5deg) translate(-2px, -1px); }
+                    100% { transform: rotate(15deg) translate(3px, 0px); }
+                  }
+                  @keyframes floatUp {
+                    0%, 100% { transform: translateY(0px) scale(0.95); opacity: 0.8; }
+                    50% { transform: translateY(-8px) scale(1.05); opacity: 1; }
+                  }
+                </style>
+              </svg>
             </div>
         </div>
       </div>
@@ -80,8 +124,8 @@
         <div class="col-sm-6 col-lg-3">
           <div class="feature-card text-center">
             <div class="feature-icon mx-auto"><i class="fas fa-id-card"></i></div>
-            <h6 class="fw-semibold mt-3">Simple Access</h6>
-            <p class="small text-muted mt-2 mb-0">
+            <h6 class="fw-semibold mt-3"><U>Simple Access</U></h6>
+            <p class="small  mt-2 mb-0">
               Student information can be captured with ID, semester, and department easily.
             </p>
           </div>
@@ -90,8 +134,8 @@
         <div class="col-sm-6 col-lg-3">
           <div class="feature-card text-center">
             <div class="feature-icon mx-auto"><i class="fas fa-star"></i></div>
-            <h6 class="fw-semibold mt-3">Structured Ratings</h6>
-            <p class="small text-muted mt-2 mb-0">
+            <h6 class="fw-semibold mt-3"><U>Structured Ratings</U></h6>
+            <p class="small mt-2 mb-0">
               Give clear ratings for teaching quality, course content, and support.
             </p>
           </div>
@@ -100,8 +144,8 @@
         <div class="col-sm-6 col-lg-3">
           <div class="feature-card text-center">
             <div class="feature-icon mx-auto"><i class="fas fa-paper-plane"></i></div>
-            <h6 class="fw-semibold mt-3">Quick Submission</h6>
-            <p class="small text-muted mt-2 mb-0">
+            <h6 class="fw-semibold mt-3"><U>Quick Submission</U></h6>
+            <p class="small mt-2 mb-0">
               Form-first layout reduces effort and helps students submit in minutes.
             </p>
           </div>
@@ -110,8 +154,8 @@
         <div class="col-sm-6 col-lg-3">
           <div class="feature-card text-center">
             <div class="feature-icon mx-auto"><i class="fas fa-chart-line"></i></div>
-            <h6 class="fw-semibold mt-3">Insight Ready</h6>
-            <p class="small text-muted mt-2 mb-0">
+            <h6 class="fw-semibold mt-3"><U>Insight Ready</U></h6>
+            <p class="small mt-2 mb-0">
               Collected responses can be used to improve faculty and course delivery.
             </p>
           </div>
@@ -122,7 +166,7 @@
 
   <footer>
     <div class="container text-center">
-      <p class="mb-2 fw-medium spaced-logo" style="font-size: 1.2rem;">SPACΞD</p>
+      <p class="mb-2 fw-medium spaced-logo" style="font-size: 1.2rem;">STUDΞNT</p>
       <small>© 2026 College Feedback Management Platform | User Experience Based On Design Guidelines</small>
     </div>
   </footer>

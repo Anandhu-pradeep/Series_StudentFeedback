@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Portal - SPACΞD</title>
+    <title>Feedback Portal - STUDΞNT</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -263,35 +263,30 @@ function renderFeedbacks() {
         let starsHtml = '';
         for(let j=1; j<=5; j++) {
             if(j <= fb.rating) {
-                starsHtml += '<i class="fas fa-star" style="color:#f59e0b"></i>';
+                starsHtml += '<i class="fas fa-star" style="color:#d36930"></i>';
             } else {
-                starsHtml += '<i class="far fa-star" style="color:rgba(255,255,255,0.2)"></i>';
+                starsHtml += '<i class="far fa-star" style="color:rgba(255,255,255,0.1)"></i>';
             }
         }
         
         // Format course name to be more readable
         const readableCourse = fb.course.split('-').map(word => document.documentElement.style.textTransform = 'capitalize' ? word.charAt(0).toUpperCase() + word.slice(1) : word).join(' ');
 
-        // Create the cosmic feedback card
+        // Create the feedback card
         const cardDiv = document.createElement('div');
-        cardDiv.style.background = 'rgba(255, 255, 255, 0.05)';
-        cardDiv.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-        cardDiv.style.borderRadius = '12px';
-        cardDiv.style.padding = '1.5rem';
-        cardDiv.style.marginTop = '1rem';
-        cardDiv.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        cardDiv.className = 'feedback-card-item';
         
         cardDiv.innerHTML = `
             <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 8px;">
                 <div>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 2px; color: var(--accent); text-align: left;">${fb.name}</h3>
-                    <div style="font-size:0.85rem; color:rgba(255,255,255,0.6); text-align: left; margin-bottom: 5px;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 2px; text-align: left;">${fb.name}</h3>
+                    <div class="course-name" style="font-size:0.85rem; text-align: left; margin-bottom: 5px;">
                         <i class="fas fa-book" style="margin-right: 5px;"></i>${readableCourse}
                     </div>
                 </div>
                 <div style="font-size: 1.1rem;">${starsHtml}</div>
             </div>
-            <p style="color: #e2e8f0; font-size: 0.95rem; margin-top: 0.8rem; line-height: 1.6; text-align: left; font-style: italic;">"${fb.comments}"</p>
+            <p class="comment-text" style="font-size: 0.95rem; margin-top: 0.8rem; line-height: 1.6; text-align: left;">"${fb.comments}"</p>
         `;
         
         feedbacksContent.appendChild(cardDiv);
