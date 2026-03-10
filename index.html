@@ -227,24 +227,39 @@ function handleSubmit(e) {
     e.preventDefault();
     if (!validateForm()) return;
     
-    // Push the submission to the array
-    allFeedbacks.push({
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting via AJAX...';
+    
+    const feedbackData = {
         name: document.getElementById('studentName').value.trim(),
         email: document.getElementById('studentEmail').value.trim(),
         course: document.getElementById('course').value,
         rating: parseInt(ratingInput.value),
         comments: commentsTextarea.value.trim()
-    });
+    };
     
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-    
-    setTimeout(() => {
+    // AJAX Request Implementation
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(feedbackData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // On successful AJAX response, push to our local array for rendering
+        allFeedbacks.push(feedbackData);
+        
         feedbackForm.classList.add('hidden');
         feedbackForm.style.display = 'none';
         successMessage.classList.add('show');
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Feedback';
-    }, 1000);
+    })
+    .catch(error => {
+        console.error('Ajax Submisson Error:', error);
+        submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Submission Failed';
+    });
 }
 
 function renderFeedbacks() {
@@ -297,7 +312,23 @@ function showFeedbacksList() {
     feedbackForm.style.display = 'none';
     successMessage.classList.remove('show');
     feedbackDisplayArea.style.display = 'block';
-    renderFeedbacks();
+    
+    // Show AJAX loading state
+    feedbacksContent.innerHTML = '<div style="text-align:center; padding: 3rem 0;"><i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent);"></i><p style="margin-top: 15px; color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Fetching via AJAX...</p></div>';
+    
+    // Simulate AJAX GET Request
+    fetch('https://jsonplaceholder.typicode.com/posts?_limit=1')
+    .then(response => response.json())
+    .then(data => {
+        // Introduce small artificial delay so user can see AJAX loader effect
+        setTimeout(() => {
+            renderFeedbacks();
+        }, 600);
+    })
+    .catch(error => {
+        console.error('AJAX Load Error:', error);
+        feedbacksContent.innerHTML = '<p style="color:var(--error-color); text-align:center; padding: 2rem 0;">Connection error while fetching feedbacks.</p>';
+    });
 }
 
 function showForm() {
