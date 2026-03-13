@@ -1,0 +1,45 @@
+$(document).ready(function() {
+    const user = checkSession('Student');
+    if (user) {
+        $('#studentName').text(user.fullName);
+        loadReviews(user.id);
+    }
+
+    function loadReviews(studentId) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const allFeedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+        
+        const myFeedbacks = allFeedbacks.filter(f => f.studentId === studentId);
+        const $list = $('#reviewsList');
+        $list.empty();
+
+        if (myFeedbacks.length === 0) {
+            $('#noReviews').removeClass('hidden');
+            return;
+        }
+
+        myFeedbacks.reverse().forEach(feedback => {
+            const teacher = users.find(u => u.id === feedback.teacherId);
+            const teacherName = teacher ? teacher.fullName : "Unknown Teacher";
+            const subject = feedback.subject || "General";
+            
+            let totalRating = 0;
+            feedback.ratings.forEach(val => totalRating += (parseInt(val) || 0));
+            const avgRating = (totalRating / 9).toFixed(1);
+            
+            const cardDate = new Date(feedback.date).toLocaleDateString();
+
+            const html = `
+                <div class="col">
+                    <div class="glass-card h-100 p-4">
+                        <h5 class="fw-bold">Prof. ${teacherName}</h5>
+                        <p>${subject}</p>
+                        <h2>${avgRating}/5</h2>
+                        <small>${cardDate}</small>
+                    </div>
+                </div>
+            `;
+            $list.append(html);
+        });
+    }
+});
