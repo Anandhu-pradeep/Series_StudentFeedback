@@ -1,6 +1,5 @@
 Registration
----------------
-// Registration Logic
+
 function handleRegister(e) {
     e.preventDefault();
     
