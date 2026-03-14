@@ -1,15 +1,3 @@
-
-1 of 357
-(no subject)
-Inbox
-
-Athulya R Mohan
-Attachments
-8:43 PM (5 minutes ago)
-to me
-
- One attachment
-  •  Scanned by Gmail
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
@@ -112,11 +100,54 @@ h1, h2, h3, h4, h5, h6, .fw-bold { color: #111827 !important; }
     font-size: 0.95rem;
 }
 
+.form-check-input {
+    border-color: #d1d5db !important;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+
 /* Input addons */
 .input-group-text {
     background-color: #f9fafb !important;
     border-color: #d1d5db !important;
     color: var(--text-muted) !important;
+}
+
+/* Admin Enhancements */
+.glass-nav {
+    background: rgba(15, 15, 25, 0.8) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-pills .nav-link {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    margin-right: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-pills .nav-link.active {
+    background: var(--primary-color) !important;
+}
+
+.table-dark {
+    background: transparent !important;
+}
+
+.table-dark thead th {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+.table-dark td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
 }
 
 /* Buttons */
@@ -262,4 +293,65 @@ footer .btn-outline-danger {
     border-color: #ef4444 !important;
     color: #ef4444 !important;
     background: #ffffff !important;
+}
+
+.transition-hover {
+    transition: all 0.3s ease;
+}
+.transition-hover:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* Feedback Specific Rating Styles */
+.rating-item {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--card-border);
+}
+
+.rating-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.rating-btn {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #f3f4f6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #d1d5db;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.rating-input:checked + .rating-btn {
+    background: var(--primary-color);
+    box-shadow: 0 0 15px rgba(234, 88, 12, 0.3);
+    border-color: transparent;
+    color: #fff;
+}
+
+.rating-btn:hover {
+    background: #e5e7eb;
+}
+
+/* Ensure Admin Table looks good with white background */
+.tab-pane .glass-card {
+    background: #fff !important;
+}
+.table-dark {
+    color: #111827 !important;
+}
+.table-dark td, .table-dark th {
+    color: #111827 !important;
+    border-color: #f3f4f6 !important;
 }
