@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .question-card {
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <div id="loader" class="spinner-overlay hidden">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="glass-card modal-content border-0 p-4 shadow-lg text-center" style="background-color: var(--bg-color);">
+                <div class="modal-body p-5">
+                    <div class="mb-4">
+                        <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Feedback Submitted!</h3>
+                    <p class="text-muted mb-4">Thank you for your valuable feedback. Your response has been recorded anonymously.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg glass-nav mb-5 py-3 fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-graduation-cap me-2"></i>EduFeedback
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="student_dashboard.html" class="btn btn-outline-light rounded-pill px-4">
+                            <i class="fa-solid fa-arrow-left me-2"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4 flex-grow-1 animate-fade-in" style="margin-top: 80px; max-width: 800px;">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold"><i class="fa-solid fa-star text-warning me-2"></i> Evaluate Your Teacher</h2>
+            <p class="text-muted">Rate your teacher across various parameters. Your feedback helps improve the learning experience.</p>
+        </div>
+
+        <form id="feedbackForm" class="glass-card p-4 p-md-5">
+            <div class="mb-5">
+                <label class="form-label fw-bold text-primary fs-5">Select Teacher <span class="text-danger">*</span></label>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text bg-transparent border-secondary text-primary">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </span>
+                    <select id="teacherSelect" name="teacherId" class="form-select border-secondary text-white fw-semibold" style="background-color: rgba(255,255,255,0.05);" required>
+                        <option value="">Choose a teacher to evaluate...</option>
+                        <!-- Options injected by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label class="form-label fw-bold text-primary fs-5">Select Subject <span class="text-danger">*</span></label>
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text bg-transparent border-secondary text-primary">
+                        <i class="fa-solid fa-book"></i>
+                    </span>
+                    <select id="subjectSelect" name="subject" class="form-select border-secondary text-white fw-semibold" style="background-color: rgba(255,255,255,0.05);" required>
+                        <option value="">Choose a subject...</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Data Structures">Data Structures</option>
+                        <option value="Software Engineering">Software Engineering</option>
+                        <option value="Database Management">Database Management</option>
+                        <option value="Operating Systems">Operating Systems</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="alert alert-glass mb-4 border-0 rounded-3 p-3">
+                <i class="fa-solid fa-circle-info me-2 text-primary"></i> <small>1 Star = Poor | 5 Stars = Excellent</small>
+            </div>
+
+            <div id="questionsContainer">
+                <!-- Questions injected by JS -->
+            </div>
+
+            <div class="mt-4 mb-5">
+                <label class="form-label fw-bold">Additional Suggestions</label>
+                <textarea id="suggestion" name="suggestion" rows="4" class="form-control text-white" style="background: rgba(255,255,255,0.05); border-color: var(--glass-border);" placeholder="Write your suggestions here (optional)..."></textarea>
+            </div>
+
+            <div class="d-grid mt-5">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-lg">
+                    <i class="fa-solid fa-paper-plane me-2"></i> Submit Anonymous Feedback
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <p class="mb-0 text-muted">&copy; 2026 Student Feedback System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            if (!checkSession('Student')) return;
+
+            const questions = [
+                "Teaching Quality",
+                "Subject Knowledge",
+                "Communication Skills",
+                "Punctuality",
+                "Class Interaction",
+                "Clarity of Explanation",
+                "Doubt Clearing Ability",
+                "Use of Teaching Aids",
+                "Overall Performance"
+            ];
+
+            const $container = $('#questionsContainer');
+            questions.forEach((q, index) => {
+                const qNum = index + 1;
+                const html = `
+                    <div class="question-card">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <div class="question-title m-0">
+                                <span class="badge bg-primary me-2">${qNum}</span> ${q} <span class="text-danger">*</span>
+                            </div>
+                            <div class="star-rating" id="rating-${qNum}">
+                                <input type="radio" id="star5-q${qNum}" name="q${qNum}" value="5" />
+                                <label for="star5-q${qNum}" title="5 stars"><i class="fa-solid fa-star"></i></label>
+                                
+                                <input type="radio" id="star4-q${qNum}" name="q${qNum}" value="4" />
+                                <label for="star4-q${qNum}" title="4 stars"><i class="fa-solid fa-star"></i></label>
+                                
+                                <input type="radio" id="star3-q${qNum}" name="q${qNum}" value="3" />
+                                <label for="star3-q${qNum}" title="3 stars"><i class="fa-solid fa-star"></i></label>
+                                
+                                <input type="radio" id="star2-q${qNum}" name="q${qNum}" value="2" />
+                                <label for="star2-q${qNum}" title="2 stars"><i class="fa-solid fa-star"></i></label>
+                                
+                                <input type="radio" id="star1-q${qNum}" name="q${qNum}" value="1" />
+                                <label for="star1-q${qNum}" title="1 star"><i class="fa-solid fa-star"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $container.append(html);
+            });
+
+            // Populate Teachers Dropdown via AJAX
+            const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+            const studentYear = user ? user.year : 1;
+            const $select = $('#teacherSelect');
+            const $subjectSelect = $('#subjectSelect');
+            
+            $.ajax({
+                url: 'api_get_mapping.php',
+                type: 'GET',
+                data: { year: studentYear },
+                success: function(response) {
+                    if (response.success && response.teachers) {
+                        response.teachers.forEach(t => {
+                            $select.append(`<option value="${t.id}" data-subject="${t.subject}">${t.name} (Assigned Subject: ${t.subject})</option>`);
+                        });
+                        
+                        // Pre-select teacher if parameter exists
+                        const urlParams = new URLSearchParams(window.location.search);
+                        if (urlParams.has('teacherId')) {
+                            $select.val(urlParams.get('teacherId'));
+                            $select.trigger('change');
+                        }
+                    }
+                }
+            });
+
+            // Set subject automatically when teacher is selected
+            $select.on('change', function() {
+                const selectedOption = $(this).find('option:selected');
+                const subject = selectedOption.data('subject');
+                if (subject) {
+                    // Temporarily add it if not exists in options (in case it's a dynamic subject)
+                    if ($subjectSelect.find(`option[value="${subject}"]`).length === 0) {
+                        $subjectSelect.append(`<option value="${subject}">${subject}</option>`);
+                    }
+                    $subjectSelect.val(subject);
+                    // Make it readonly by disabling other clicks
+                    $subjectSelect.find('option:not(:selected)').prop('disabled', true);
+                }
+            });
+
+            // Interactive Stars Logic (Highlight on Hover) using jQuery
+            $('.star-rating label').hover(
+                function() {
+                    $(this).nextAll('label').addBack().css('color', 'var(--star-active)');
+                    $(this).prevAll('label').css('color', 'var(--star-inactive)');
+                },
+                function() {
+                    const $container = $(this).closest('.star-rating');
+                    $container.find('label').css('color', '');
+                }
+            );
+        });
+    </script>
+</body>
+</html>
